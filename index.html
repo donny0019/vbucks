@@ -56,8 +56,27 @@
         .glow-hover:hover { filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.8)); }
         .card-glow { box-shadow: 0 0 35px rgba(56, 189, 248, 0.15); }
         .particle { position: absolute; background: rgba(255, 255, 255, 0.6); border-radius: 50%; pointer-events: none; z-index: 0; animation-name: float; animation-timing-function: ease-in-out; animation-iteration-count: infinite; }
-        .language-dropdown { display: none; }
-        .language-selector:hover .language-dropdown { display: block; }
+        
+        /* Improved Language Dropdown Styles */
+        .language-dropdown {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.2s ease;
+        }
+        .language-selector:hover .language-dropdown,
+        .language-selector:focus-within .language-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .language-selector:hover #language-button i,
+        .language-selector:focus-within #language-button i {
+            transform: rotate(180deg);
+        }
+        .language-dropdown a:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
     </style>
     
 </head>
@@ -77,11 +96,12 @@
                     <span class="text-sm font-medium" data-i18n="headerTag">COMMUNITY GIVEAWAY</span>
                 </div>
                 <div class="language-selector relative">
-                    <button class="language-button flex items-center space-x-2 px-3 py-2 bg-gray-800/50 rounded-md">
+                    <button id="language-button" class="flex items-center space-x-2 px-3 py-2 bg-gray-800/50 rounded-md hover:bg-gray-700 transition focus:outline-none focus:ring-2 focus:ring-blue-500">
                         <span class="fi fi-gb"></span>
                         <span class="text-sm font-medium">EN</span>
+                        <i class="fas fa-chevron-down text-xs ml-1 transition-transform duration-200"></i>
                     </button>
-                    <div class="language-dropdown absolute top-full right-0 mt-2 bg-gray-800 border border-gray-700 rounded-md shadow-lg w-40">
+                    <div class="language-dropdown absolute top-full right-0 mt-2 bg-gray-800 border border-gray-700 rounded-md shadow-lg w-40 z-50">
                         <a href="#" data-lang="en" class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-700 w-full text-left"><span class="fi fi-gb"></span><span>English</span></a>
                         <a href="#" data-lang="fr" class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-700 w-full text-left"><span class="fi fi-fr"></span><span>Français</span></a>
                         <a href="#" data-lang="es" class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-700 w-full text-left"><span class="fi fi-es"></span><span>Español</span></a>
@@ -157,19 +177,237 @@
     </footer>
 
     <script>
-        const translations = {
-            en: { "title": "Fan-Run V-Bucks Giveaway (13,500 V-Bucks Prize) | V-Bucks Vault", "metaDescription": "Enter our community-run giveaway for a chance to win 13,500 V-Bucks! Free entry for all Fortnite players. See rules and enter to win.", "headerTag": "COMMUNITY GIVEAWAY", "liveTag": "LIVE GIVEAWAY", "mainHeading1": "13,500 V-BUCKS", "mainHeading2": "GIVEAWAY", "subHeading": "We're celebrating the new season with an exclusive V-Bucks giveaway! Enter now for your chance to win the ultimate Fortnite prize.", "ctaButton": "Claim Your Entry", "ctaSubtext": "Limited spots available • No purchase required", "aboutTitle": "About V-Bucks Vault", "aboutText": "We are a community of passionate Fortnite content creators and fans dedicated to giving back to the players.", "feature1Title": "Community Focused", "feature1Text": "Run by players, for players. We host events and giveaways to keep the community thriving.", "feature2Title": "Verified Prizes", "feature2Text": "All our giveaways feature legitimate, self-funded prizes. We show proof of winners on our social channels.", "feature3Title": "Fan Supported", "feature3Text": "This giveaway is made possible through our partners. Completing an offer helps fund the next one!", "winnersTitle": "Recent Winners", "winnersText": "Winners are verified and announced on our social media channels.", "timeAgo1": "2 hours ago", "timeAgo2": "4 hours ago", "timeAgo3": "6 hours ago", "timeAgo4": "8 hours ago", "footerTerms": "Terms of Service", "footerPrivacy": "Privacy Policy", "footerDisclaimer": "Not affiliated with Epic Games or Fortnite." },
-            fr: { "title": "Concours de V-Bucks par des fans (Prix de 13 500 V-Bucks) | V-Bucks Vault", "metaDescription": "Participez à notre concours communautaire pour une chance de gagner 13 500 V-Bucks ! Entrée gratuite pour tous les joueurs de Fortnite.", "headerTag": "CONCOURS COMMUNAUTAIRE", "liveTag": "CONCOURS EN DIRECT", "mainHeading1": "13 500 V-BUCKS", "mainHeading2": "CONCOURS", "subHeading": "Nous célébrons la nouvelle saison avec un concours exclusif de V-Bucks ! Participez maintenant pour avoir une chance de gagner le prix ultime de Fortnite.", "ctaButton": "Réclamez votre participation", "ctaSubtext": "Places limitées disponibles • Aucun achat requis", "aboutTitle": "À propos de V-Bucks Vault", "aboutText": "Nous sommes une communauté de créateurs de contenu et de fans passionnés de Fortnite dédiés à redonner aux joueurs.", "feature1Title": "Axé sur la communauté", "feature1Text": "Géré par des joueurs, pour des joueurs. Nous organisons des événements et des concours pour maintenir la communauté active.", "feature2Title": "Prix vérifiés", "feature2Text": "Tous nos concours proposent des prix légitimes et autofinancés. Nous montrons la preuve des gagnants sur nos réseaux sociaux.", "feature3Title": "Soutenu par les fans", "feature3Text": "Ce concours est rendu possible grâce à nos partenaires. Compléter une offre aide à financer le prochain !", "winnersTitle": "Gagnants récents", "winnersText": "Les gagnants sont vérifiés et annoncés sur nos réseaux sociaux.", "timeAgo1": "Il y a 2 heures", "timeAgo2": "Il y a 4 heures", "timeAgo3": "Il y a 6 heures", "timeAgo4": "Il y a 8 heures", "footerTerms": "Conditions d'utilisation", "footerPrivacy": "Politique de confidentialité", "footerDisclaimer": "Non affilié à Epic Games ou Fortnite." },
-            es: { "title": "Sorteo de V-Bucks por fans (Premio de 13,500 V-Bucks) | V-Bucks Vault", "metaDescription": "¡Participa en nuestro sorteo comunitario para tener la oportunidad de ganar 13,500 V-Bucks! Entrada gratuita para todos los jugadores de Fortnite.", "headerTag": "SORTEO COMUNITARIO", "liveTag": "SORTEO EN VIVO", "mainHeading1": "13,500 V-BUCKS", "mainHeading2": "SORTEO", "subHeading": "¡Celebramos la nueva temporada con un sorteo exclusivo de V-Bucks! Participa ahora para tener la oportunidad de ganar el premio definitivo de Fortnite.", "ctaButton": "Reclama tu entrada", "ctaSubtext": "Plazas limitadas disponibles • No se requiere compra", "aboutTitle": "Sobre V-Bucks Vault", "aboutText": "Somos una comunidad de apasionados creadores de contenido y fans de Fortnite dedicados a retribuir a los jugadores.", "feature1Title": "Enfocado en la comunidad", "feature1Text": "Hecho por jugadores, para jugadores. Organizamos eventos y sorteos para mantener la comunidad próspera.", "feature2Title": "Premios verificados", "feature2Text": "Todos nuestros sorteos cuentan con premios legítimos y autofinanciados. Mostramos pruebas de los ganadores en nuestras redes sociales.", "feature3Title": "Apoyado por fans", "feature3Text": "Este sorteo es posible gracias a nuestros socios. ¡Completar una oferta ayuda a financiar el próximo!", "winnersTitle": "Ganadores recientes", "winnersText": "Los ganadores son verificados y anunciados en nuestras redes sociales.", "timeAgo1": "Hace 2 horas", "timeAgo2": "Hace 4 horas", "timeAgo3": "Hace 6 horas", "timeAgo4": "Hace 8 horas", "footerTerms": "Términos de servicio", "footerPrivacy": "Política de privacidad", "footerDisclaimer": "No afiliado a Epic Games o Fortnite." },
-            pt: { "title": "Sorteio de V-Bucks por fãs (Prêmio de 13.500 V-Bucks) | V-Bucks Vault", "metaDescription": "Participe do nosso sorteio comunitário para ter a chance de ganhar 13.500 V-Bucks! Inscrição gratuita para todos os jogadores de Fortnite.", "headerTag": "SORTEIO COMUNITÁRIO", "liveTag": "SORTEIO AO VIVO", "mainHeading1": "13.500 V-BUCKS", "mainHeading2": "SORTEIO", "subHeading": "Estamos comemorando a nova temporada com um sorteio exclusivo de V-Bucks! Participe agora para ter a chance de ganhar o prêmio máximo do Fortnite.", "ctaButton": "Reivindique sua entrada", "ctaSubtext": "Vagas limitadas disponíveis • Nenhuma compra necessária", "aboutTitle": "Sobre o V-Bucks Vault", "aboutText": "Somos uma comunidade de criadores de conteúdo e fãs apaixonados por Fortnite dedicados a retribuir aos jogadores.", "feature1Title": "Focado na comunidade", "feature1Text": "Feito por jogadores, para jogadores. Organizamos eventos e sorteios para manter a comunidade próspera.", "feature2Title": "Prêmios verificados", "feature2Text": "Todos os nossos sorteios apresentam prêmios legítimos e autofinanciados. Mostramos provas dos vencedores em nossas redes sociais.", "feature3Title": "Apoiado por fãs", "feature3Text": "Este sorteio é possível graças aos nossos parceiros. Completar uma oferta ajuda a financiar o próximo!", "winnersTitle": "Vencedores recentes", "winnersText": "Os vencedores são verificados e anunciados em nossas redes sociais.", "timeAgo1": "Há 2 horas", "timeAgo2": "Há 4 horas", "timeAgo3": "Há 6 horas", "timeAgo4": "Há 8 horas", "footerTerms": "Termos de Serviço", "footerPrivacy": "Política de Privacidade", "footerDisclaimer": "Não afiliado à Epic Games ou Fortnite." },
-            de: { "title": "Von Fans veranstaltetes V-Bucks-Gewinnspiel (13.500 V-Bucks Preis) | V-Bucks Vault", "metaDescription": "Nehmen Sie an unserem Community-Gewinnspiel teil und gewinnen Sie mit etwas Glück 13.500 V-Bucks! Kostenlose Teilnahme für alle Fortnite-Spieler.", "headerTag": "COMMUNITY-GEWINNSPIEL", "liveTag": "LIVE-GEWINNSPIEL", "mainHeading1": "13.500 V-BUCKS", "mainHeading2": "GEWINNSPIEL", "subHeading": "Wir feiern die neue Saison mit einem exklusiven V-Bucks-Gewinnspiel! Nehmen Sie jetzt teil und sichern Sie sich die Chance auf den ultimativen Fortnite-Preis.", "ctaButton": "Fordern Sie Ihre Teilnahme an", "ctaSubtext": "Begrenzte Plätze verfügbar • Kein Kauf erforderlich", "aboutTitle": "Über V-Bucks Vault", "aboutText": "Wir sind eine Gemeinschaft leidenschaftlicher Fortnite-Content-Ersteller und -Fans, die den Spielern etwas zurückgeben möchten.", "feature1Title": "Community-orientiert", "feature1Text": "Von Spielern für Spieler. Wir veranstalten Events und Gewinnspiele, um die Community am Leben zu erhalten.", "feature2Title": "Verifizierte Preise", "feature2Text": "Alle unsere Gewinnspiele bieten legitime, selbst finanzierte Preise. Wir zeigen Beweise der Gewinner auf unseren sozialen Kanälen.", "feature3Title": "Von Fans unterstützt", "feature3Text": "Dieses Gewinnspiel wird durch unsere Partner ermöglicht. Das Abschließen eines Angebots hilft, das nächste zu finanzieren!", "winnersTitle": "Letzte Gewinner", "winnersText": "Die Gewinner werden überprüft und auf unseren Social-Media-Kanälen bekannt gegeben.", "timeAgo1": "Vor 2 Stunden", "timeAgo2": "Vor 4 Stunden", "timeAgo3": "Vor 6 Stunden", "timeAgo4": "Vor 8 Stunden", "footerTerms": "Nutzungsbedingungen", "footerPrivacy": "Datenschutz-Bestimmungen", "footerDisclaimer": "Nicht mit Epic Games oder Fortnite verbunden." },
-            ar: { "title": "سحب V-Bucks من المعجبين (جائزة 13,500 V-Bucks) | V-Bucks Vault", "metaDescription": "شارك في سحبنا المجتمعي للحصول على فرصة للفوز بـ 13,500 V-Bucks! دخول مجاني لجميع لاعبي Fortnite.", "headerTag": "سحب مجتمعي", "liveTag": "سحب مباشر", "mainHeading1": "13,500 V-BUCKS", "mainHeading2": "سحب", "subHeading": "نحتفل بالموسم الجديد بسحب حصري لـ V-Bucks! ادخل الآن للحصول على فرصة للفوز بجائزة Fortnite النهائية.", "ctaButton": "اطلب دخولك", "ctaSubtext": "الأماكن محدودة • لا يلزم الشراء", "aboutTitle": "حول V-Bucks Vault", "aboutText": "نحن مجتمع من منشئي المحتوى وعشاق Fortnite المتحمسين والمكرسين لرد الجميل للاعبين.", "feature1Title": "مرتكز على المجتمع", "feature1Text": "يديره اللاعبون، من أجل اللاعبين. نستضيف الأحداث والسحوبات للحفاظ على ازدهار المجتمع.", "feature2Title": "جوائز موثقة", "feature2Text": "تتميز جميع سحوباتنا بجوائز مشروعة وممولة ذاتيًا. نعرض إثبات الفائزين على قنواتنا الاجتماعية.", "feature3Title": "بدعم من المعجبين", "feature3Text": "أصبح هذا السحب ممكنًا من خلال شركائنا. إكمال عرض يساعد في تمويل العرض التالي!", "winnersTitle": "الفائزون الجدد", "winnersText": "يتم التحقق من الفائزين والإعلان عنهم على قنواتنا على وسائل التواصل الاجتماعي.", "timeAgo1": "قبل ساعتين", "timeAgo2": "قبل 4 ساعات", "timeAgo3": "قبل 6 ساعات", "timeAgo4": "قبل 8 ساعات", "footerTerms": "شروط الخدمة", "footerPrivacy": "سياسة الخصوصية", "footerDisclaimer": "غير تابع لـ Epic Games أو Fortnite." },
-            ru: { "title": "Розыгрыш V-Bucks от фанатов (Приз 13,500 V-Bucks) | V-Bucks Vault", "metaDescription": "Участвуйте в нашем розыгрыше от сообщества и получите шанс выиграть 13,500 V-Bucks! Бесплатное участие для всех игроков Fortnite.", "headerTag": "РОЗЫГРЫШ ОТ СООБЩЕСТВА", "liveTag": "ПРЯМОЙ ЭФИР", "mainHeading1": "13,500 V-BUCKS", "mainHeading2": "РОЗЫГРЫШ", "subHeading": "Мы празднуем новый сезон эксклюзивным розыгрышем V-Bucks! Участвуйте сейчас, чтобы получить шанс выиграть главный приз Fortnite.", "ctaButton": "Получить свой билет", "ctaSubtext": "Количество мест ограничено • Покупка не требуется", "aboutTitle": "О V-Bucks Vault", "aboutText": "Мы - сообщество увлеченных создателей контента и поклонников Fortnite, посвященное тому, чтобы отдавать должное игрокам.", "feature1Title": "Фокус на сообществе", "feature1Text": "От игроков для игроков. Мы проводим мероприятия и розыгрыши, чтобы поддерживать процветание сообщества.", "feature2Title": "Проверенные призы", "feature2Text": "Все наши розыгрыши включают законные, самофинансируемые призы. Мы показываем доказательства победителей в наших социальных сетях.", "feature3Title": "Поддержка фанатов", "feature3Text": "Этот розыгрыш стал возможен благодаря нашим партнерам. Выполнение предложения помогает финансировать следующий!", "winnersTitle": "Недавние победители", "winnersText": "Победители проверяются и объявляются в наших социальных сетях.", "timeAgo1": "2 часа назад", "timeAgo2": "4 часа назад", "timeAgo3": "6 часов назад", "timeAgo4": "8 часов назад", "footerTerms": "Условия предоставления услуг", "footerPrivacy": "Политика конфиденциальности", "footerDisclaimer": "Не связано с Epic Games или Fortnite." }
-        };
+        // Improved Language Dropdown Functionality
         document.addEventListener('DOMContentLoaded', () => {
-            const languageButton = document.querySelector('.language-button');
+            const languageButton = document.getElementById('language-button');
             const languageDropdown = document.querySelector('.language-dropdown');
             const languageLinks = document.querySelectorAll('.language-dropdown a');
+
+            // Toggle dropdown on button click (for mobile)
+            languageButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isExpanded = languageDropdown.style.opacity === '1';
+                languageDropdown.style.opacity = isExpanded ? '0' : '1';
+                languageDropdown.style.visibility = isExpanded ? 'hidden' : 'visible';
+                languageDropdown.style.transform = isExpanded ? 'translateY(-10px)' : 'translateY(0)';
+                
+                // Rotate chevron icon
+                const icon = languageButton.querySelector('i');
+                icon.style.transform = isExpanded ? 'rotate(0deg)' : 'rotate(180deg)';
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', () => {
+                languageDropdown.style.opacity = '0';
+                languageDropdown.style.visibility = 'hidden';
+                languageDropdown.style.transform = 'translateY(-10px)';
+                languageButton.querySelector('i').style.transform = 'rotate(0deg)';
+            });
+
+            // Prevent dropdown close when clicking inside it
+            languageDropdown.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+
+            // Language selection functionality
+            const translations = {
+                en: { 
+                    "title": "Fan-Run V-Bucks Giveaway (13,500 V-Bucks Prize) | V-Bucks Vault", 
+                    "metaDescription": "Enter our community-run giveaway for a chance to win 13,500 V-Bucks! Free entry for all Fortnite players. See rules and enter to win.",
+                    "headerTag": "COMMUNITY GIVEAWAY",
+                    "liveTag": "LIVE GIVEAWAY",
+                    "mainHeading1": "13,500 V-BUCKS",
+                    "mainHeading2": "GIVEAWAY",
+                    "subHeading": "We're celebrating the new season with an exclusive V-Bucks giveaway! Enter now for your chance to win the ultimate Fortnite prize.",
+                    "ctaButton": "Claim Your Entry",
+                    "ctaSubtext": "Limited spots available • No purchase required",
+                    "aboutTitle": "About V-Bucks Vault",
+                    "aboutText": "We are a community of passionate Fortnite content creators and fans dedicated to giving back to the players.",
+                    "feature1Title": "Community Focused",
+                    "feature1Text": "Run by players, for players. We host events and giveaways to keep the community thriving.",
+                    "feature2Title": "Verified Prizes",
+                    "feature2Text": "All our giveaways feature legitimate, self-funded prizes. We show proof of winners on our social channels.",
+                    "feature3Title": "Fan Supported",
+                    "feature3Text": "This giveaway is made possible through our partners. Completing an offer helps fund the next one!",
+                    "winnersTitle": "Recent Winners",
+                    "winnersText": "Winners are verified and announced on our social media channels.",
+                    "timeAgo1": "2 hours ago",
+                    "timeAgo2": "4 hours ago",
+                    "timeAgo3": "6 hours ago",
+                    "timeAgo4": "8 hours ago",
+                    "footerTerms": "Terms of Service",
+                    "footerPrivacy": "Privacy Policy",
+                    "footerDisclaimer": "Not affiliated with Epic Games or Fortnite."
+                },
+                fr: { 
+                    "title": "Concours de V-Bucks par des fans (Prix de 13 500 V-Bucks) | V-Bucks Vault", 
+                    "metaDescription": "Participez à notre concours communautaire pour une chance de gagner 13 500 V-Bucks ! Entrée gratuite pour tous les joueurs de Fortnite.", 
+                    "headerTag": "CONCOURS COMMUNAUTAIRE", 
+                    "liveTag": "CONCOURS EN DIRECT", 
+                    "mainHeading1": "13 500 V-BUCKS", 
+                    "mainHeading2": "CONCOURS", 
+                    "subHeading": "Nous célébrons la nouvelle saison avec un concours exclusif de V-Bucks ! Participez maintenant pour avoir une chance de gagner le prix ultime de Fortnite.", 
+                    "ctaButton": "Réclamez votre participation", 
+                    "ctaSubtext": "Places limitées disponibles • Aucun achat requis", 
+                    "aboutTitle": "À propos de V-Bucks Vault", 
+                    "aboutText": "Nous sommes une communauté de créateurs de contenu et de fans passionnés de Fortnite dédiés à redonner aux joueurs.", 
+                    "feature1Title": "Axé sur la communauté", 
+                    "feature1Text": "Géré par des joueurs, pour des joueurs. Nous organisons des événements et des concours pour maintenir la communauté active.", 
+                    "feature2Title": "Prix vérifiés", 
+                    "feature2Text": "Tous nos concours proposent des prix légitimes et autofinancés. Nous montrons la preuve des gagnants sur nos réseaux sociaux.", 
+                    "feature3Title": "Soutenu par les fans", 
+                    "feature3Text": "Ce concours est rendu possible grâce à nos partenaires. Compléter une offre aide à financer le prochain !", 
+                    "winnersTitle": "Gagnants récents", 
+                    "winnersText": "Les gagnants sont vérifiés et annoncés sur nos réseaux sociaux.", 
+                    "timeAgo1": "Il y a 2 heures", 
+                    "timeAgo2": "Il y a 4 heures", 
+                    "timeAgo3": "Il y a 6 heures", 
+                    "timeAgo4": "Il y a 8 heures", 
+                    "footerTerms": "Conditions d'utilisation", 
+                    "footerPrivacy": "Politique de confidentialité", 
+                    "footerDisclaimer": "Non affilié à Epic Games ou Fortnite." 
+                },
+                es: { 
+                    "title": "Sorteo de V-Bucks por fans (Premio de 13,500 V-Bucks) | V-Bucks Vault", 
+                    "metaDescription": "¡Participa en nuestro sorteo comunitario para tener la oportunidad de ganar 13,500 V-Bucks! Entrada gratuita para todos los jugadores de Fortnite.", 
+                    "headerTag": "SORTEO COMUNITARIO", 
+                    "liveTag": "SORTEO EN VIVO", 
+                    "mainHeading1": "13,500 V-BUCKS", 
+                    "mainHeading2": "SORTEO", 
+                    "subHeading": "¡Celebramos la nueva temporada con un sorteo exclusivo de V-Bucks! Participa ahora para tener la oportunidad de ganar el premio definitivo de Fortnite.", 
+                    "ctaButton": "Reclama tu entrada", 
+                    "ctaSubtext": "Plazas limitadas disponibles • No se requiere compra", 
+                    "aboutTitle": "Sobre V-Bucks Vault", 
+                    "aboutText": "Somos una comunidad de apasionados creadores de contenido y fans de Fortnite dedicados a retribuir a los jugadores.", 
+                    "feature1Title": "Enfocado en la comunidad", 
+                    "feature1Text": "Hecho por jugadores, para jugadores. Organizamos eventos y sorteos para mantener la comunidad próspera.", 
+                    "feature2Title": "Premios verificados", 
+                    "feature2Text": "Todos nuestros sorteos cuentan con premios legítimos y autofinanciados. Mostramos pruebas de los ganadores en nuestras redes sociales.", 
+                    "feature3Title": "Apoyado por fans", 
+                    "feature3Text": "Este sorteo es posible gracias a nuestros socios. ¡Completar una oferta ayuda a financiar el próximo!", 
+                    "winnersTitle": "Ganadores recientes", 
+                    "winnersText": "Los ganadores son verificados y anunciados en nuestras redes sociales.", 
+                    "timeAgo1": "Hace 2 horas", 
+                    "timeAgo2": "Hace 4 horas", 
+                    "timeAgo3": "Hace 6 horas", 
+                    "timeAgo4": "Hace 8 horas", 
+                    "footerTerms": "Términos de servicio", 
+                    "footerPrivacy": "Política de privacidad", 
+                    "footerDisclaimer": "No afiliado a Epic Games o Fortnite." 
+                },
+                pt: { 
+                    "title": "Sorteio de V-Bucks por fãs (Prêmio de 13.500 V-Bucks) | V-Bucks Vault", 
+                    "metaDescription": "Participe do nosso sorteio comunitário para ter a chance de ganhar 13.500 V-Bucks! Inscrição gratuita para todos os jogadores de Fortnite.", 
+                    "headerTag": "SORTEIO COMUNITÁRIO", 
+                    "liveTag": "SORTEIO AO VIVO", 
+                    "mainHeading1": "13.500 V-BUCKS", 
+                    "mainHeading2": "SORTEIO", 
+                    "subHeading": "Estamos comemorando a nova temporada com um sorteio exclusivo de V-Bucks! Participe agora para ter a chance de ganhar o prêmio máximo do Fortnite.", 
+                    "ctaButton": "Reivindique sua entrada", 
+                    "ctaSubtext": "Vagas limitadas disponíveis • Nenhuma compra necessária", 
+                    "aboutTitle": "Sobre o V-Bucks Vault", 
+                    "aboutText": "Somos uma comunidade de criadores de conteúdo e fãs apaixonados por Fortnite dedicados a retribuir aos jogadores.", 
+                    "feature1Title": "Focado na comunidade", 
+                    "feature1Text": "Feito por jogadores, para jogadores. Organizamos eventos e sorteios para manter a comunidade próspera.", 
+                    "feature2Title": "Prêmios verificados", 
+                    "feature2Text": "Todos os nossos sorteios apresentam prêmios legítimos e autofinanciados. Mostramos provas dos vencedores em nossas redes sociais.", 
+                    "feature3Title": "Apoiado por fãs", 
+                    "feature3Text": "Este sorteio é possível graças aos nossos parceiros. Completar uma oferta ajuda a financiar o próximo!", 
+                    "winnersTitle": "Vencedores recentes", 
+                    "winnersText": "Os vencedores são verificados e anunciados em nossas redes sociais.", 
+                    "timeAgo1": "Há 2 horas", 
+                    "timeAgo2": "Há 4 horas", 
+                    "timeAgo3": "Há 6 horas", 
+                    "timeAgo4": "Há 8 horas", 
+                    "footerTerms": "Termos de Serviço", 
+                    "footerPrivacy": "Política de Privacidade", 
+                    "footerDisclaimer": "Não afiliado à Epic Games ou Fortnite." 
+                },
+                de: { 
+                    "title": "Von Fans veranstaltetes V-Bucks-Gewinnspiel (13.500 V-Bucks Preis) | V-Bucks Vault", 
+                    "metaDescription": "Nehmen Sie an unserem Community-Gewinnspiel teil und gewinnen Sie mit etwas Glück 13.500 V-Bucks! Kostenlose Teilnahme für alle Fortnite-Spieler.", 
+                    "headerTag": "COMMUNITY-GEWINNSPIEL", 
+                    "liveTag": "LIVE-GEWINNSPIEL", 
+                    "mainHeading1": "13.500 V-BUCKS", 
+                    "mainHeading2": "GEWINNSPIEL", 
+                    "subHeading": "Wir feiern die neue Saison mit einem exklusiven V-Bucks-Gewinnspiel! Nehmen Sie jetzt teil und sichern Sie sich die Chance auf den ultimativen Fortnite-Preis.", 
+                    "ctaButton": "Fordern Sie Ihre Teilnahme an", 
+                    "ctaSubtext": "Begrenzte Plätze verfügbar • Kein Kauf erforderlich", 
+                    "aboutTitle": "Über V-Bucks Vault", 
+                    "aboutText": "Wir sind eine Gemeinschaft leidenschaftlicher Fortnite-Content-Ersteller und -Fans, die den Spielern etwas zurückgeben möchten.", 
+                    "feature1Title": "Community-orientiert", 
+                    "feature1Text": "Von Spielern für Spieler. Wir veranstalten Events und Gewinnspiele, um die Community am Leben zu erhalten.", 
+                    "feature2Title": "Verifizierte Preise", 
+                    "feature2Text": "Alle unsere Gewinnspiele bieten legitime, selbst finanzierte Preise. Wir zeigen Beweise der Gewinner auf unseren sozialen Kanälen.", 
+                    "feature3Title": "Von Fans unterstützt", 
+                    "feature3Text": "Dieses Gewinnspiel wird durch unsere Partner ermöglicht. Das Abschließen eines Angebots hilft, das nächste zu finanzieren!", 
+                    "winnersTitle": "Letzte Gewinner", 
+                    "winnersText": "Die Gewinner werden überprüft und auf unseren Social-Media-Kanälen bekannt gegeben.", 
+                    "timeAgo1": "Vor 2 Stunden", 
+                    "timeAgo2": "Vor 4 Stunden", 
+                    "timeAgo3": "Vor 6 Stunden", 
+                    "timeAgo4": "Vor 8 Stunden", 
+                    "footerTerms": "Nutzungsbedingungen", 
+                    "footerPrivacy": "Datenschutz-Bestimmungen", 
+                    "footerDisclaimer": "Nicht mit Epic Games oder Fortnite verbunden." 
+                },
+                ar: { 
+                    "title": "سحب V-Bucks من المعجبين (جائزة 13,500 V-Bucks) | V-Bucks Vault", 
+                    "metaDescription": "شارك في سحبنا المجتمعي للحصول على فرصة للفوز بـ 13,500 V-Bucks! دخول مجاني لجميع لاعبي Fortnite.", 
+                    "headerTag": "سحب مجتمعي", 
+                    "liveTag": "سحب مباشر", 
+                    "mainHeading1": "13,500 V-BUCKS", 
+                    "mainHeading2": "سحب", 
+                    "subHeading": "نحتفل بالموسم الجديد بسحب حصري لـ V-Bucks! ادخل الآن للحصول على فرصة للفوز بجائزة Fortnite النهائية.", 
+                    "ctaButton": "اطلب دخولك", 
+                    "ctaSubtext": "الأماكن محدودة • لا يلزم الشراء", 
+                    "aboutTitle": "حول V-Bucks Vault", 
+                    "aboutText": "نحن مجتمع من منشئي المحتوى وعشاق Fortnite المتحمسين والمكرسين لرد الجميل للاعبين.", 
+                    "feature1Title": "مرتكز على المجتمع", 
+                    "feature1Text": "يديره اللاعبون، من أجل اللاعبين. نستضيف الأحداث والسحوبات للحفاظ على ازدهار المجتمع.", 
+                    "feature2Title": "جوائز موثقة", 
+                    "feature2Text": "تتميز جميع سحوباتنا بجوائز مشروعة وممولة ذاتيًا. نعرض إثبات الفائزين على قنواتنا الاجتماعية.", 
+                    "feature3Title": "بدعم من المعجبين", 
+                    "feature3Text": "أصبح هذا السحب ممكنًا من خلال شركائنا. إكمال عرض يساعد في تمويل العرض التالي!", 
+                    "winnersTitle": "الفائزون الجدد", 
+                    "winnersText": "يتم التحقق من الفائزين والإعلان عنهم على قنواتنا على وسائل التواصل الاجتماعي.", 
+                    "timeAgo1": "قبل ساعتين", 
+                    "timeAgo2": "قبل 4 ساعات", 
+                    "timeAgo3": "قبل 6 ساعات", 
+                    "timeAgo4": "قبل 8 ساعات", 
+                    "footerTerms": "شروط الخدمة", 
+                    "footerPrivacy": "سياسة الخصوصية", 
+                    "footerDisclaimer": "غير تابع لـ Epic Games أو Fortnite." 
+                },
+                ru: { 
+                    "title": "Розыгрыш V-Bucks от фанатов (Приз 13,500 V-Bucks) | V-Bucks Vault", 
+                    "metaDescription": "Участвуйте в нашем розыгрыше от сообщества и получите шанс выиграть 13,500 V-Bucks! Бесплатное участие для всех игроков Fortnite.", 
+                    "headerTag": "РОЗЫГРЫШ ОТ СООБЩЕСТВА", 
+                    "liveTag": "ПРЯМОЙ ЭФИР", 
+                    "mainHeading1": "13,500 V-BUCKS", 
+                    "mainHeading2": "РОЗЫГРЫШ", 
+                    "subHeading": "Мы празднуем новый сезон эксклюзивным розыгрышем V-Bucks! Участвуйте сейчас, чтобы получить шанс выиграть главный приз Fortnite.", 
+                    "ctaButton": "Получить свой билет", 
+                    "ctaSubtext": "Количество мест ограничено • Покупка не требуется", 
+                    "aboutTitle": "О V-Bucks Vault", 
+                    "aboutText": "Мы - сообщество увлеченных создателей контента и поклонников Fortnite, посвященное тому, чтобы отдавать должное игрокам.", 
+                    "feature1Title": "Фокус на сообществе", 
+                    "feature1Text": "От игроков для игроков. Мы проводим мероприятия и розыгрыши, чтобы поддерживать процветание сообщества.", 
+                    "feature2Title": "Проверенные призы", 
+                    "feature2Text": "Все наши розыгрыши включают законные, самофинансируемые призы. Мы показываем доказательства победителей в наших социальных сетях.", 
+                    "feature3Title": "Поддержка фанатов", 
+                    "feature3Text": "Этот розыгрыш стал возможен благодаря нашим партнерам. Выполнение предложения помогает финансировать следующий!", 
+                    "winnersTitle": "Недавние победители", 
+                    "winnersText": "Победители проверяются и объявляются в наших социальных сетях.", 
+                    "timeAgo1": "2 часа назад", 
+                    "timeAgo2": "4 часа назад", 
+                    "timeAgo3": "6 часов назад", 
+                    "timeAgo4": "8 часов назад", 
+                    "footerTerms": "Условия предоставления услуг", 
+                    "footerPrivacy": "Политика конфиденциальности", 
+                    "footerDisclaimer": "Не связано с Epic Games или Fortnite." 
+                }
+            };
 
             const setLanguage = (lang) => {
                 const langData = translations[lang] || translations.en;
@@ -190,6 +428,12 @@
                 const flagClass = { en: 'fi-gb', fr: 'fi-fr', es: 'fi-es', pt: 'fi-pt', de: 'fi-de', ar: 'fi-sa', ru: 'fi-ru' }[lang];
                 languageButton.querySelector('span.fi').className = `fi ${flagClass}`;
                 languageButton.querySelector('span:last-child').textContent = lang.toUpperCase();
+                
+                // Close dropdown after selection
+                languageDropdown.style.opacity = '0';
+                languageDropdown.style.visibility = 'hidden';
+                languageDropdown.style.transform = 'translateY(-10px)';
+                languageButton.querySelector('i').style.transform = 'rotate(0deg)';
             };
 
             languageLinks.forEach(link => {
@@ -198,10 +442,10 @@
                     const lang = link.dataset.lang;
                     localStorage.setItem('language', lang);
                     setLanguage(lang);
-                    languageDropdown.classList.add('hidden');
                 });
             });
             
+            // Initialize with saved language or browser language
             const savedLang = localStorage.getItem('language') || navigator.language.slice(0, 2);
             setLanguage(['en', 'fr', 'es', 'pt', 'de', 'ar', 'ru'].includes(savedLang) ? savedLang : 'en');
             
