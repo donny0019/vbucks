@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="title">Confirm Your Entry - V-Bucks Giveaway</title>
+    <meta name="robots" content="noindex, nofollow">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        fortnite: ['"Burbank Big Condensed"', 'sans-serif'],
+                        body: ['Poppins', 'sans-serif']
+                    },
+                    animation: {
+                        'success-pulse': 'successPulse 2s infinite',
+                    },
+                    keyframes: {
+                        successPulse: {
+                            '0%, 100%': { transform: 'scale(1)', opacity: '1' },
+                            '50%': { transform: 'scale(1.05)', opacity: '0.9' },
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Burbank+Big+Condensed:wght@700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        body { background-color: #0f0f17; background-image: radial-gradient(circle at 20% 30%, rgba(76, 81, 191, 0.25) 0%, transparent 25%), radial-gradient(circle at 80% 70%, rgba(150, 40, 180, 0.25) 0%, transparent 25%); background-attachment: fixed; }
+        .v-bucks-gradient { background: linear-gradient(135deg, #00c6ff 0%, #0072ff 50%, #9400d3 100%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .glow-hover:hover { filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.7)); }
+        .card-glow { box-shadow: 0 0 30px rgba(56, 189, 248, 0.2); }
+        .success-glow { box-shadow: 0 0 30px rgba(72, 187, 120, 0.4); }
+        .spinner { border-top-color: #3b82f6; animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .checkmark__circle { stroke-dasharray: 166; stroke-dashoffset: 166; animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards; }
+        .checkmark__check { transform-origin: 50% 50%; stroke-dasharray: 48; stroke-dashoffset: 48; animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards; }
+        @keyframes stroke { 100% { stroke-dashoffset: 0; } }
+    </style>
+</head>
+<body class="font-body text-gray-200 min-h-screen flex items-center justify-center p-4">
+
+    <!-- Step 1: Claim Form -->
+    <div id="claim-container" class="bg-gray-800/80 border border-gray-700/50 rounded-2xl p-8 max-w-md w-full shadow-2xl card-glow">
+        <div class="text-center mb-8">
+            <div class="relative inline-block"><div class="absolute -inset-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full opacity-20 blur-xl"></div><div class="relative w-24 h-24 flex items-center justify-center bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-full mx-auto mb-6"><i class="fas fa-trophy text-4xl text-white"></i></div></div>
+            <h2 class="text-4xl font-fortnite text-white mb-2" data-i18n="heading"><span class="v-bucks-gradient">Final Step!</span></h2>
+            <p class="text-lg text-gray-300" data-i18n="subheading">Enter your details for the <span class="font-bold text-white">13,500 V-Bucks</span> giveaway</p>
+        </div>
+        <form id="claim-form" class="space-y-6">
+            <div>
+                <label for="username" class="block text-sm font-medium text-gray-400 mb-2 text-left" data-i18n="usernameLabel">Your Epic Games Username</label>
+                <div class="relative"><div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><i class="fas fa-user text-gray-500"></i></div><input type="text" id="username" data-i18n-placeholder="usernamePlaceholder" placeholder="e.g. NinjaPlayer123" class="w-full bg-gray-700/50 border border-gray-600/50 text-white placeholder-gray-400 rounded-lg py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200" required></div>
+            </div>
+            <button type="submit" class="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-400 hover:to-green-500 text-white font-bold text-xl py-4 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 glow-hover flex items-center justify-center space-x-2"><i class="fas fa-check-circle"></i><span data-i18n="submitButton">CONFIRM ENTRY</span></button>
+            <div class="flex items-center space-x-2 text-xs text-gray-500" data-i18n="secureText"><i class="fas fa-lock"></i><span>Your information is secure and used only for prize distribution.</span></div>
+        </form>
+    </div>
+
+    <!-- Step 2: Verifying State -->
+    <div id="verifying-container" class="hidden bg-gray-800/80 border border-gray-700/50 rounded-2xl p-8 max-w-md w-full text-center">
+        <div class="spinner w-16 h-16 rounded-full border-4 border-gray-600 mx-auto"></div>
+        <h2 class="text-3xl font-fortnite text-white mt-8 mb-2" data-i18n="verifyingText">Verifying Entry...</h2>
+        <p id="verifying-status" class="text-gray-300" data-i18n="verifyingStatus">Connecting to giveaway servers...</p>
+        <div class="mt-6 bg-gray-700/30 rounded-full h-2 w-full overflow-hidden"><div id="progress-bar" class="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div></div>
+    </div>
+
+    <!-- Step 3: Success & Partner Offers -->
+    <div id="success-container" class="hidden bg-gray-800/80 border border-gray-700/50 rounded-2xl p-8 max-w-md w-full text-center success-glow animate-success-pulse">
+        <svg class="checkmark mx-auto w-20 h-20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" stroke-width="5"/><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" stroke-width="5"/></svg>
+        <h2 class="text-4xl font-fortnite text-white mt-6 mb-2" data-i18n="successHeading"><span class="v-bucks-gradient">Entry Confirmed!</span></h2>
+        <p class="text-lg text-gray-300 mb-6" data-i18n="successSubheading">Your entry for <span class="font-bold text-white">13,500 V-Bucks</span> is reserved.</p>
+        <div class="mt-8 text-left bg-black/20 p-6 rounded-xl">
+            <h3 class="font-fortnite text-xl text-yellow-300 mb-4 flex items-center" data-i18n="offerTitle"><i class="fas fa-shield-alt mr-2"></i><span>Finalize Your Entry</span></h3>
+            <p class="text-gray-300 mb-2" data-i18n="offerText1">To prevent bots, please complete one free offer from our partners. Winners are chosen randomly from all valid entries.</p>
+            <p class="text-sm text-gray-400 mb-4" data-i18n="offerText2">Completing an offer helps us fund more giveaways for the community!</p>
+            <div class="space-y-3">
+                <a href="https://your-affiliate-link.com/offer1" target="_blank" class="block bg-gray-700/50 hover:bg-gray-700 border border-gray-600/50 rounded-lg p-4 transition-all duration-300 group relative overflow-hidden"><div class="absolute top-0 right-0 bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg" data-i18n="offer1Tag">EASY</div><div class="flex items-center"><div class="bg-blue-500/20 w-10 h-10 rounded-lg flex items-center justify-center mr-4"><i class="fas fa-gamepad text-blue-400"></i></div><div class="flex-1"><h4 class="font-bold text-white group-hover:text-blue-400" data-i18n="offer1Title">Play Solitaire Smash</h4><p class="text-xs text-gray-400" data-i18n="offer1Desc">Install & play one game to finalize.</p></div><i class="fas fa-chevron-right text-gray-400 group-hover:text-blue-400"></i></div></a>
+                <a href="https://your-affiliate-link.com/offer2" target="_blank" class="block bg-gray-700/50 hover:bg-gray-700 border border-gray-600/50 rounded-lg p-4 transition-all duration-300 group"><div class="flex items-center"><div class="bg-green-500/20 w-10 h-10 rounded-lg flex items-center justify-center mr-4"><i class="fas fa-poll text-green-400"></i></div><div class="flex-1"><h4 class="font-bold text-white group-hover:text-green-400" data-i18n="offer2Title">Quick Survey</h4><p class="text-xs text-gray-400" data-i18n="offer2Desc">Answer a few questions (2 mins).</p></div><i class="fas fa-chevron-right text-gray-400 group-hover:text-green-400"></i></div></a>
+            </div>
+        </div>
+        <p class="text-xs text-gray-500 mt-4" data-i18n="offerDisclaimer">Completing an offer unlocks your entry and redirects you.</p>
+    </div>
+
+    <script>
+        const translations = {
+            en: { "title": "Confirm Your Entry - V-Bucks Giveaway", "heading": "Final Step!", "subheading": "Enter your details for the <strong>13,500 V-Bucks</strong> giveaway", "usernameLabel": "Your Epic Games Username", "usernamePlaceholder": "e.g. NinjaPlayer123", "submitButton": "CONFIRM ENTRY", "secureText": "Your information is secure and used only for prize distribution.", "verifyingText": "Verifying Entry...", "verifyingStatus": "Connecting to giveaway servers...", "successHeading": "Entry Confirmed!", "successSubheading": "Your entry for <strong>13,500 V-Bucks</strong> is reserved.", "offerTitle": "Finalize Your Entry", "offerText1": "To prevent bots, please complete one free offer from our partners. Winners are chosen randomly from all valid entries.", "offerText2": "Completing an offer helps us fund more giveaways for the community!", "offer1Tag": "EASY", "offer1Title": "Play Solitaire Smash", "offer1Desc": "Install & play one game to finalize.", "offer2Title": "Quick Survey", "offer2Desc": "Answer a few questions (2 mins).", "offerDisclaimer": "Completing an offer unlocks your entry and redirects you." },
+            fr: { "title": "Confirmez votre participation - Concours V-Bucks", "heading": "Dernière étape !", "subheading": "Entrez vos informations pour le concours de <strong>13 500 V-Bucks</strong>", "usernameLabel": "Votre pseudo Epic Games", "usernamePlaceholder": "ex: JoueurNinja123", "submitButton": "CONFIRMER LA PARTICIPATION", "secureText": "Vos informations sont sécurisées et utilisées uniquement pour la distribution des prix.", "verifyingText": "Vérification en cours...", "verifyingStatus": "Connexion aux serveurs du concours...", "successHeading": "Participation confirmée !", "successSubheading": "Votre participation pour <strong>13 500 V-Bucks</strong> est réservée.", "offerTitle": "Finalisez votre participation", "offerText1": "Pour éviter les bots, veuillez compléter une offre gratuite de nos partenaires. Les gagnants sont choisis au hasard.", "offerText2": "Compléter une offre nous aide à financer plus de concours !", "offer1Tag": "FACILE", "offer1Title": "Jouez à Solitaire Smash", "offer1Desc": "Installez et jouez à un jeu pour finaliser.", "offer2Title": "Sondage rapide", "offer2Desc": "Répondez à quelques questions (2 min).", "offerDisclaimer": "Compléter une offre déverrouille votre participation et vous redirige." },
+            es: { "title": "Confirma tu entrada - Sorteo de V-Bucks", "heading": "¡Último paso!", "subheading": "Ingresa tus datos para el sorteo de <strong>13,500 V-Bucks</strong>", "usernameLabel": "Tu nombre de usuario de Epic Games", "usernamePlaceholder": "ej: JugadorNinja123", "submitButton": "CONFIRMAR ENTRADA", "secureText": "Tu información está segura y se usa solo para la distribución de premios.", "verifyingText": "Verificando entrada...", "verifyingStatus": "Conectando a los servidores del sorteo...", "successHeading": "¡Entrada confirmada!", "successSubheading": "Tu entrada para <strong>13,500 V-Bucks</strong> está reservada.", "offerTitle": "Finaliza tu entrada", "offerText1": "Para prevenir bots, completa una oferta gratuita de nuestros socios. Los ganadores se eligen al azar.", "offerText2": "¡Completar una oferta nos ayuda a financiar más sorteos!", "offer1Tag": "FÁCIL", "offer1Title": "Juega Solitaire Smash", "offer1Desc": "Instala y juega un juego para finalizar.", "offer2Title": "Encuesta rápida", "offer2Desc": "Responde algunas preguntas (2 min).", "offerDisclaimer": "Completar una oferta desbloquea tu entrada y te redirige." },
+            pt: { "title": "Confirme sua Inscrição - Sorteio de V-Bucks", "heading": "Último Passo!", "subheading": "Insira seus dados para o sorteio de <strong>13.500 V-Bucks</strong>", "usernameLabel": "Seu nome de usuário da Epic Games", "usernamePlaceholder": "ex: JogadorNinja123", "submitButton": "CONFIRMAR INSCRIÇÃO", "secureText": "Suas informações estão seguras e são usadas apenas para a distribuição do prêmio.", "verifyingText": "Verificando inscrição...", "verifyingStatus": "Conectando aos servidores do sorteio...", "successHeading": "Inscrição Confirmada!", "successSubheading": "Sua inscrição para <strong>13.500 V-Bucks</strong> está reservada.", "offerTitle": "Finalize sua inscrição", "offerText1": "Para evitar bots, complete uma oferta gratuita de nossos parceiros. Os vencedores são escolhidos aleatoriamente.", "offerText2": "Completar uma oferta nos ajuda a financiar mais sorteios!", "offer1Tag": "FÁCIL", "offer1Title": "Jogue Solitaire Smash", "offer1Desc": "Instale e jogue um jogo para finalizar.", "offer2Title": "Pesquisa rápida", "offer2Desc": "Responda a algumas perguntas (2 min).", "offerDisclaimer": "Completar uma oferta desbloqueia sua inscrição e te redireciona." },
+            de: { "title": "Bestätigen Sie Ihre Teilnahme - V-Bucks-Gewinnspiel", "heading": "Letzter Schritt!", "subheading": "Geben Sie Ihre Daten für das <strong>13.500 V-Bucks</strong>-Gewinnspiel ein", "usernameLabel": "Ihr Epic Games-Benutzername", "usernamePlaceholder": "z.B. NinjaSpieler123", "submitButton": "TEILNAHME BESTÄTIGEN", "secureText": "Ihre Informationen sind sicher und werden nur zur Preisverteilung verwendet.", "verifyingText": "Teilnahme wird überprüft...", "verifyingStatus": "Verbindung zu den Gewinnspielservern wird hergestellt...", "successHeading": "Teilnahme bestätigt!", "successSubheading": "Ihre Teilnahme für <strong>13.500 V-Bucks</strong> ist reserviert.", "offerTitle": "Schließen Sie Ihre Teilnahme ab", "offerText1": "Um Bots zu verhindern, schließen Sie bitte ein kostenloses Angebot unserer Partner ab. Die Gewinner werden nach dem Zufallsprinzip ausgewählt.", "offerText2": "Das Abschließen eines Angebots hilft uns, weitere Gewinnspiele zu finanzieren!", "offer1Tag": "EINFACH", "offer1Title": "Spielen Sie Solitaire Smash", "offer1Desc": "Installieren und spielen Sie ein Spiel zum Abschluss.", "offer2Title": "Schnelle Umfrage", "offer2Desc": "Beantworten Sie ein paar Fragen (2 Min.).", "offerDisclaimer": "Der Abschluss eines Angebots schaltet Ihre Teilnahme frei und leitet Sie weiter." },
+            ar: { "title": "تأكيد دخولك - سحب V-Bucks", "heading": "الخطوة الأخيرة!", "subheading": "أدخل بياناتك لسحب <strong>13,500 V-Bucks</strong>", "usernameLabel": "اسم مستخدم Epic Games الخاص بك", "usernamePlaceholder": "مثال: NinjaPlayer123", "submitButton": "تأكيد الدخول", "secureText": "معلوماتك آمنة وتستخدم فقط لتوزيع الجوائز.", "verifyingText": "يتم التحقق من الدخول...", "verifyingStatus": "جارٍ الاتصال بخوادم السحب...", "successHeading": "تم تأكيد الدخول!", "successSubheading": "تم حجز دخولك لسحب <strong>13,500 V-Bucks</strong>.", "offerTitle": "أكمل دخولك", "offerText1": "لمنع الروبوتات، يرجى إكمال عرض مجاني واحد من شركائنا. يتم اختيار الفائزين بشكل عشوائي.", "offerText2": "إكمال عرض يساعدنا في تمويل المزيد من السحوبات للمجتمع!", "offer1Tag": "سهل", "offer1Title": "العب Solitaire Smash", "offer1Desc": "ثبّت والعب لعبة واحدة للإنهاء.", "offer2Title": "استطلاع سريع", "offer2Desc": "أجب عن بعض الأسئلة (دقيقتان).", "offerDisclaimer": "إكمال العرض يفتح دخولك ويعيد توجيهك." },
+            ru: { "title": "Подтвердите участие - Розыгрыш V-Bucks", "heading": "Последний шаг!", "subheading": "Введите свои данные для розыгрыша <strong>13,500 V-Bucks</strong>", "usernameLabel": "Ваш ник в Epic Games", "usernamePlaceholder": "например, NinjaPlayer123", "submitButton": "ПОДТВЕРДИТЬ УЧАСТИЕ", "secureText": "Ваша информация защищена и используется только для вручения приза.", "verifyingText": "Проверка участия...", "verifyingStatus": "Подключение к серверам розыгрыша...", "successHeading": "Участие подтверждено!", "successSubheading": "Ваше участие в розыгрыше <strong>13,500 V-Bucks</strong> зарезервировано.", "offerTitle": "Завершите ваше участие", "offerText1": "Для предотвращения ботов, пожалуйста, выполните одно бесплатное предложение от наших партнеров. Победители выбираются случайным образом.", "offerText2": "Выполнение предложения помогает нам финансировать больше розыгрышей для сообщества!", "offer1Tag": "ЛЕГКО", "offer1Title": "Сыграйте в Solitaire Smash", "offer1Desc": "Установите и сыграйте одну игру для завершения.", "offer2Title": "Быстрый опрос", "offer2Desc": "Ответьте на несколько вопросов (2 мин.).", "offerDisclaimer": "Выполнение предложения разблокирует ваше участие и перенаправит вас." }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const setLanguage = (lang) => {
+                const langData = translations[lang] || translations.en;
+                document.documentElement.lang = lang;
+                document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+                Object.keys(langData).forEach(key => {
+                    document.querySelectorAll(`[data-i18n="${key}"]`).forEach(el => {
+                        if (el.tagName === 'TITLE') document.title = langData[key];
+                        else if (el.hasAttribute('data-i18n-placeholder')) el.placeholder = langData[key];
+                        else el.innerHTML = langData[key];
+                    });
+                });
+            };
+
+            const savedLang = localStorage.getItem('language') || navigator.language.slice(0, 2);
+            setLanguage(['en', 'fr', 'es', 'pt', 'de', 'ar', 'ru'].includes(savedLang) ? savedLang : 'en');
+            
+            const UIElements = { claimContainer: document.getElementById('claim-container'), claimForm: document.getElementById('claim-form'), verifyingContainer: document.getElementById('verifying-container'), verifyingStatus: document.getElementById('verifying-status'), progressBar: document.getElementById('progress-bar'), successContainer: document.getElementById('success-container') };
+            const verificationSteps = [ { text: "Connecting to giveaway servers...", duration: 1500, progress: 30 }, { text: "Validating username...", duration: 2000, progress: 70 }, { text: "Reserving your spot...", duration: 1500, progress: 100 } ];
+            const runVerification = async () => {
+                UIElements.claimContainer.classList.add('hidden');
+                UIElements.verifyingContainer.classList.remove('hidden');
+                for (const step of verificationSteps) {
+                    UIElements.verifyingStatus.textContent = step.text;
+                    UIElements.progressBar.style.width = `${step.progress}%`;
+                    await new Promise(resolve => setTimeout(resolve, step.duration));
+                }
+                showSuccess();
+            };
+            const showSuccess = () => {
+                UIElements.verifyingContainer.classList.add('hidden');
+                UIElements.successContainer.classList.remove('hidden');
+            };
+            UIElements.claimForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                runVerification();
+            });
+        });
+    </script>
+</body>
+</html>
