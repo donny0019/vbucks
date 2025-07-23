@@ -1,0 +1,1 @@
+User-agent: *Allow: /Disallow: /claim.htmlSitemap: https://www.google.com/search?q=https://v-bucksgiveaway.netlify.app/sitemap.xml
